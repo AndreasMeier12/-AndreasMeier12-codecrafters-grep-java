@@ -19,8 +19,8 @@ class TesterTest {
 
     @Test
     public void testEmpty(){
-        assertTrue(Tester.test(List.of(new LiteralMatcher('a')), "a"));
-        assertFalse(Tester.test(List.of(new LiteralMatcher('a')), "b"));
+        assertTrue(Tester.test(List.of(), "a"));
+        assertFalse(Tester.test(List.of(new LiteralMatcher('a')), ""));
     }
 
     @Test
