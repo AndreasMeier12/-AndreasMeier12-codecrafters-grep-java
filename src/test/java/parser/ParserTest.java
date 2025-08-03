@@ -1,5 +1,6 @@
 package parser;
 
+import matcher.AlphaNumericMatcher;
 import matcher.DigitMatcher;
 import matcher.LiteralMatcher;
 import org.junit.jupiter.api.Test;
@@ -27,6 +28,30 @@ class ParserTest {
 
         assertEquals(1, res.size());
         assertInstanceOf(DigitMatcher.class, res.getFirst());
+
+    }
+
+    @Test
+    public void testSimpleAlphaNumeric(){
+
+        Parser parser = new Parser("\\w");
+        var res = parser.parse();
+
+        assertEquals(1, res.size());
+        assertInstanceOf(AlphaNumericMatcher.class, res.getFirst());
+
+    }
+
+    @Test
+    public void testThreeParsers(){
+
+        Parser parser = new Parser("\\wa\\d");
+        var res = parser.parse();
+
+        assertEquals(3, res.size());
+        assertInstanceOf(AlphaNumericMatcher.class, res.getFirst());
+        assertInstanceOf(LiteralMatcher.class, res.get(1));
+        assertInstanceOf(DigitMatcher.class, res.get(2));
 
     }
 

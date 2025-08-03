@@ -21,10 +21,13 @@ public class LiteralMatcher implements IMatcher {
     public MatcherResponse match(String a) {
         logger.log(Level.INFO, "Matching literal " + val + " to value in string " + a.charAt(0));
 
-        if (a.charAt(0) == this.val) {
-            return new MatcherResponse(true, 1, true);
-        } else
-            return new MatcherResponse(false, 0, false);
+        for (int i = 0; i < a.length(); i++){
+            if (a.charAt(i) == val){
+                return new MatcherResponse(true, i + 1, true);
+            }
+
+        }
+        return new MatcherResponse(false, 0, false);
 
     }
 

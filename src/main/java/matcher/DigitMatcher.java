@@ -8,10 +8,13 @@ public class DigitMatcher implements IMatcher {
 
     @Override
     public MatcherResponse match(String a) {
-        if (Character.isDigit(a.charAt(0))) {
-            return new MatcherResponse(true, 1, true);
-        } else
-            return new MatcherResponse(false, 0, false);
+        for (int i = 0; i < a.length(); i++){
+            if (Character.isDigit(a.charAt(i))){
+                return new MatcherResponse(true, i + 1, true);
+            }
+
+        }
+        return new MatcherResponse(false, 0, false);
 
 
     }
