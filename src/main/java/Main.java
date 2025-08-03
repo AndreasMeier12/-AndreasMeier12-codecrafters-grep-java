@@ -2,8 +2,6 @@ import matcher.IMatcher;
 import parser.Parser;
 import tester.Tester;
 
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -32,7 +30,7 @@ public class Main {
     }
 
     public static boolean matchPattern(String inputLine, String pattern) {
-      List<IMatcher> matchers = new Parser(pattern).parse();
+      List<IMatcher> matchers = new Parser().parseMatcher(pattern);
       return Tester.test(matchers, inputLine);
     }
 }

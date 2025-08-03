@@ -13,7 +13,7 @@ public class CodeCraftersCases {
     public void testMr9(){
         String input = "\"%+×_÷+-";
         String pattern = "\\w";
-        List<IMatcher> matchers = new Parser(pattern).parse();
+        List<IMatcher> matchers = new Parser().parseMatcher(pattern);
         assertEquals(1, matchers.size());
         boolean res = Tester.test(matchers, input);
         assertTrue(res);
@@ -25,7 +25,7 @@ public class CodeCraftersCases {
     public void testMr9Case2(){
         String input = "×+%-÷=";
         String pattern = "\\w";
-        List<IMatcher> matchers = new Parser(pattern).parse();
+        List<IMatcher> matchers = new Parser().parseMatcher(pattern);
         assertEquals(1, matchers.size());
         boolean res = Tester.test(matchers, input);
         assertFalse(res);
@@ -33,10 +33,23 @@ public class CodeCraftersCases {
 
     }
 
+    @Test
+    public void testTl6Raspberry(){
+        String input = "a";
+        String pattern = "[raspberry]";
+        List<IMatcher> matchers = new Parser().parseMatcher(pattern);
+        assertEquals(1, matchers.size());
+        boolean res = Tester.test(matchers, input);
+        assertTrue(res);
+
+
+    }
+
+
     public void testMr9Intro(){
         String input = "\"%+×_÷+-";
         String pattern = "\\w";
-        List<IMatcher> matchers = new Parser(pattern).parse();
+        List<IMatcher> matchers = new Parser().parseMatcher(pattern);
         assertEquals(1, matchers.size());
         boolean res = Tester.test(matchers, input);
         assertFalse(res);
