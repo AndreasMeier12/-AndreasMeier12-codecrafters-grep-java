@@ -1,4 +1,10 @@
+import matcher.IMatcher;
+import parser.Parser;
+import tester.Tester;
+
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Main {
@@ -9,7 +15,8 @@ public class Main {
         }
 
         String pattern = args[1];
-        Scanner scanner = new Scanner(System.in);
+
+      Scanner scanner = new Scanner(System.in);
         String inputLine = scanner.nextLine();
 
         // You can use print statements as follows for debugging, they'll be visible when running tests.
@@ -25,10 +32,7 @@ public class Main {
     }
 
     public static boolean matchPattern(String inputLine, String pattern) {
-        if (pattern.length() == 1) {
-            return inputLine.contains(pattern);
-        } else {
-            throw new RuntimeException("Unhandled pattern: " + pattern);
-        }
+      List<IMatcher> matchers = new Parser(pattern).parse();
+      return Tester.test(matchers, inputLine);
     }
 }
