@@ -46,13 +46,38 @@ public class CodeCraftersCases {
     }
 
 
+    @Test
     public void testMr9Intro(){
         String input = "\"%+×_÷+-";
         String pattern = "\\w";
         List<IMatcher> matchers = new Parser().parseMatcher(pattern);
         assertEquals(1, matchers.size());
         boolean res = Tester.test(matchers, input);
-        assertFalse(res);
+        assertTrue(res);
+
+
+    }
+
+    @Test
+    public void testSh9Intro(){
+        String input = "1 apple";
+        String pattern = "\\d apple";
+        List<IMatcher> matchers = new Parser().parseMatcher(pattern);
+        boolean res = Tester.test(matchers, input);
+        assertTrue(res);
+
+
+    }
+
+    @Test
+    public void testSh9IntroCase2(){
+        String inputPositive = "100 apple";
+        String inputNegative = "1 apple";
+
+        String pattern = "\\d\\d\\d apple";
+        List<IMatcher> matchers = new Parser().parseMatcher(pattern);
+        assertTrue(Tester.test(matchers, inputPositive));
+        assertTrue(Tester.test(matchers, inputNegative));
 
 
     }
