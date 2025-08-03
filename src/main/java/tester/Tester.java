@@ -17,6 +17,7 @@ public class Tester {
                 return false;
 
             }
+            stringPos = stringPos + match.getCharsToConsume();
 
             if (match.isConsumeMatcher()) {
                 matcherPos++;

@@ -77,7 +77,20 @@ public class CodeCraftersCases {
         String pattern = "\\d\\d\\d apple";
         List<IMatcher> matchers = new Parser().parseMatcher(pattern);
         assertTrue(Tester.test(matchers, inputPositive));
-        assertTrue(Tester.test(matchers, inputNegative));
+        assertFalse(Tester.test(matchers, inputNegative));
+
+
+    }
+
+    @Test
+    public void testSh9IntroCase3(){
+        String inputPositive = "3 dogs";
+        String inputNegative = "1 dog";
+
+        String pattern = "\\d \\w\\w\\ws";
+        List<IMatcher> matchers = new Parser().parseMatcher(pattern);
+        assertTrue(Tester.test(matchers, inputPositive));
+        assertFalse(Tester.test(matchers, inputNegative));
 
 
     }
