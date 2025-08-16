@@ -95,4 +95,30 @@ public class CodeCraftersCases {
 
     }
 
+
+    @Test
+    public void testRk3Intro(){
+        String inputPositive = "dog";
+        String inputNegative = "cab";
+
+        String pattern = "[^abc]";
+        List<IMatcher> matchers = new Parser().parseMatcher(pattern);
+        assertTrue(Tester.test(matchers, inputPositive));
+        assertFalse(Tester.test(matchers, inputNegative));
+
+
+    }
+
+    @Test
+    public void testRk3Case1(){
+        String inputPositive = "apple";
+
+        String pattern = "[^abc]";
+        List<IMatcher> matchers = new Parser().parseMatcher(pattern);
+        assertTrue(Tester.test(matchers, inputPositive));
+
+
+    }
+
+
 }

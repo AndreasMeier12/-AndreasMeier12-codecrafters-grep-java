@@ -85,8 +85,15 @@ public class Parser {
     private GroupParseResult parseGroup(String regex) {
         int pos = 0;
         List<IMatcher> myMatchers = new ArrayList<>();
+
         int length = lookAhead(regex, pos);
         String subString = regex.substring(pos + 1, pos + length -1 );
+        if (subString.startsWith("^")){
+            subString = subString.substring(1);
+            return new GroupParseResult(length, new NegativeGroupMatcher(parseMatcher(subString)));
+
+
+        }
 
 
         GroupMatcher matcher = new GroupMatcher(parseMatcher(subString)
