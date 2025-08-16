@@ -19,16 +19,17 @@ public class NegativeGroupMatcher implements IMatcher {
     @Override
     public MatcherResponse match(String a) {
         int pos = 0;
-        for (IMatcher matcher : subMatchers){
+        while (pos < a.length()){
+
             String subString = a.substring(pos);
-            MatcherResponse match = matcher.match(subString);
-            if(match.isMatches()){
-                return new MatcherResponse(false, 0, false);
+            if(subMatchers.stream().anyMatch(x -> x.match(subString).matches)){
+                pos = pos +1;
+            } else {
+                return new MatcherResponse(true, pos + 1, true);
             }
-            pos = pos + match.getCharsToConsume();
         }
 
-        return new MatcherResponse(true, 1, true);
+        return new MatcherResponse(false, 0, true);
 
     }
 }

@@ -120,5 +120,16 @@ public class CodeCraftersCases {
 
     }
 
+    @Test
+    public void testRk3Case2(){
+        String inputPositive = "banana";
+
+        String pattern = "[^anb]";
+        List<IMatcher> matchers = new Parser().parseMatcher(pattern);
+        assertFalse(Tester.test(matchers, inputPositive));
+
+
+    }
+
 
 }
