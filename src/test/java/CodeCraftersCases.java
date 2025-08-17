@@ -148,4 +148,20 @@ public class CodeCraftersCases {
 
     }
 
+    @Test
+    public void testAo7Intro(){
+        String inputPositive = "dog";
+        String inputNegative = "dogs";
+
+        String pattern = "dog$";
+        MatcherExpression matchers = new Parser().parse(pattern);
+        assertFalse(matchers.isStartAnchored());
+        assertTrue(matchers.isEndAnchored());
+
+        assertTrue(Tester.test(matchers, inputPositive));
+        assertFalse(Tester.test(matchers, inputNegative));
+
+
+    }
+
 }

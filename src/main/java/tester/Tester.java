@@ -49,6 +49,10 @@ public class Tester {
 
         }
         if (matcherPos == matchers.size()) {
+            if (matcherExpression.isEndAnchored() && stringPos < a.length()){
+                return false;
+            }
+
             return true;
         }
 
