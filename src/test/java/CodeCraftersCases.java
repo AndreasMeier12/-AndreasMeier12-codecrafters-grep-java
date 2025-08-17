@@ -1,4 +1,5 @@
 import matcher.IMatcher;
+import matcher.MatcherExpression;
 import org.junit.jupiter.api.Test;
 import parser.Parser;
 import tester.Tester;
@@ -13,8 +14,8 @@ public class CodeCraftersCases {
     public void testMr9(){
         String input = "\"%+×_÷+-";
         String pattern = "\\w";
-        List<IMatcher> matchers = new Parser().parseMatcher(pattern);
-        assertEquals(1, matchers.size());
+        MatcherExpression matchers = new Parser().parse(pattern);
+        assertEquals(1, matchers.getMatchers().size());
         boolean res = Tester.test(matchers, input);
         assertTrue(res);
 
@@ -25,8 +26,8 @@ public class CodeCraftersCases {
     public void testMr9Case2(){
         String input = "×+%-÷=";
         String pattern = "\\w";
-        List<IMatcher> matchers = new Parser().parseMatcher(pattern);
-        assertEquals(1, matchers.size());
+        MatcherExpression matchers = new Parser().parse(pattern);
+        assertEquals(1, matchers.getMatchers().size());
         boolean res = Tester.test(matchers, input);
         assertFalse(res);
 
@@ -37,8 +38,8 @@ public class CodeCraftersCases {
     public void testTl6Raspberry(){
         String input = "a";
         String pattern = "[raspberry]";
-        List<IMatcher> matchers = new Parser().parseMatcher(pattern);
-        assertEquals(1, matchers.size());
+        MatcherExpression matchers = new Parser().parse(pattern);
+        assertEquals(1, matchers.getMatchers().size());
         boolean res = Tester.test(matchers, input);
         assertTrue(res);
 
@@ -50,8 +51,8 @@ public class CodeCraftersCases {
     public void testMr9Intro(){
         String input = "\"%+×_÷+-";
         String pattern = "\\w";
-        List<IMatcher> matchers = new Parser().parseMatcher(pattern);
-        assertEquals(1, matchers.size());
+        MatcherExpression matchers = new Parser().parse(pattern);
+        assertEquals(1, matchers.getMatchers().size());
         boolean res = Tester.test(matchers, input);
         assertTrue(res);
 
@@ -62,7 +63,7 @@ public class CodeCraftersCases {
     public void testSh9Intro(){
         String input = "1 apple";
         String pattern = "\\d apple";
-        List<IMatcher> matchers = new Parser().parseMatcher(pattern);
+        MatcherExpression matchers = new Parser().parse(pattern);
         boolean res = Tester.test(matchers, input);
         assertTrue(res);
 
@@ -75,7 +76,7 @@ public class CodeCraftersCases {
         String inputNegative = "1 apple";
 
         String pattern = "\\d\\d\\d apple";
-        List<IMatcher> matchers = new Parser().parseMatcher(pattern);
+        MatcherExpression matchers = new Parser().parse(pattern);
         assertTrue(Tester.test(matchers, inputPositive));
         assertFalse(Tester.test(matchers, inputNegative));
 
@@ -88,7 +89,7 @@ public class CodeCraftersCases {
         String inputNegative = "1 dog";
 
         String pattern = "\\d \\w\\w\\ws";
-        List<IMatcher> matchers = new Parser().parseMatcher(pattern);
+        MatcherExpression matchers = new Parser().parse(pattern);
         assertTrue(Tester.test(matchers, inputPositive));
         assertFalse(Tester.test(matchers, inputNegative));
 
@@ -102,7 +103,7 @@ public class CodeCraftersCases {
         String inputNegative = "cab";
 
         String pattern = "[^abc]";
-        List<IMatcher> matchers = new Parser().parseMatcher(pattern);
+        MatcherExpression matchers = new Parser().parse(pattern);
         assertTrue(Tester.test(matchers, inputPositive));
         assertFalse(Tester.test(matchers, inputNegative));
 
@@ -114,7 +115,7 @@ public class CodeCraftersCases {
         String inputPositive = "apple";
 
         String pattern = "[^abc]";
-        List<IMatcher> matchers = new Parser().parseMatcher(pattern);
+        MatcherExpression matchers = new Parser().parse(pattern);
         assertTrue(Tester.test(matchers, inputPositive));
 
 
@@ -122,11 +123,11 @@ public class CodeCraftersCases {
 
     @Test
     public void testRk3Case2(){
-        String inputPositive = "banana";
+        String inputNegative = "banana";
 
         String pattern = "[^anb]";
-        List<IMatcher> matchers = new Parser().parseMatcher(pattern);
-        assertFalse(Tester.test(matchers, inputPositive));
+        MatcherExpression matchers = new Parser().parse(pattern);
+        assertFalse(Tester.test(matchers, inputNegative));
 
 
     }

@@ -14,7 +14,7 @@ class ParserTest {
     @Test
     public void testSimpleLiteral(){
         Parser parser = new Parser();
-        var res = parser.parseMatcher("a");
+        var res = parser.parse("a").getMatchers();
         assertEquals(1, res.size());
         assertInstanceOf(LiteralMatcher.class, res.getFirst());
 
@@ -25,7 +25,7 @@ class ParserTest {
     public void testSimpleDigit(){
 
         Parser parser = new Parser();
-        var res = parser.parseMatcher("\\d");
+        var res = parser.parse("\\d").getMatchers();
 
         assertEquals(1, res.size());
         assertInstanceOf(DigitMatcher.class, res.getFirst());
@@ -36,7 +36,7 @@ class ParserTest {
     public void testSimpleAlphaNumeric(){
 
         Parser parser = new Parser();
-        var res = parser.parseMatcher("\\w");
+        var res = parser.parse("\\w").getMatchers();
 
         assertEquals(1, res.size());
         assertInstanceOf(AlphaNumericMatcher.class, res.getFirst());
@@ -47,7 +47,7 @@ class ParserTest {
     public void testThreeParsers(){
 
         Parser parser = new Parser();
-        var res = parser.parseMatcher("\\wa\\d");
+        var res = parser.parse("\\wa\\d").getMatchers();
 
         assertEquals(3, res.size());
         assertInstanceOf(AlphaNumericMatcher.class, res.getFirst());
@@ -60,7 +60,7 @@ class ParserTest {
     public void testGroup(){
 
         Parser parser = new Parser();
-        var res = parser.parseMatcher("[a]");
+        var res = parser.parse("[a]").getMatchers();
 
         assertEquals(1, res.size());
         assertInstanceOf(GroupMatcher.class, res.getFirst());
@@ -76,7 +76,7 @@ class ParserTest {
     public void testNestedGroup(){
 
         Parser parser = new Parser();
-        var res = parser.parseMatcher("[[a]]");
+        var res = parser.parse("[[a]]").getMatchers();
 
         assertEquals(1, res.size());
         assertInstanceOf(GroupMatcher.class, res.getFirst());
@@ -93,7 +93,7 @@ class ParserTest {
     public void testNestedGroupWithMoreStuff(){
 
         Parser parser = new Parser();
-        var res = parser.parseMatcher("a[[a]]\\d");
+        var res = parser.parse("a[[a]]\\d").getMatchers();
 
         assertEquals(3, res.size());
         assertInstanceOf(LiteralMatcher.class, res.getFirst());

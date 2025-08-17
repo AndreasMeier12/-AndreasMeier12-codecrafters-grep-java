@@ -7,7 +7,6 @@ public interface IMatcher {
 
     MatcherResponse match(String a);
 
-
     public static class MatcherResponse{
         boolean matches;
         int charsToConsume;

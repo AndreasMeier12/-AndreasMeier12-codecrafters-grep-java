@@ -12,7 +12,49 @@ public class Parser {
     public Parser() {
             }
 
-    public List<IMatcher> parseMatcher(String regex) {
+
+    public MatcherExpression parse(String regex
+
+
+    ) {
+
+        boolean startAnchor = regex.startsWith("^");
+        boolean endAnchor = parseEndsWith(regex);
+
+        String regexNew = regex;
+        if (startAnchor){
+            regexNew = regexNew.substring(1);
+        }
+        if (endAnchor){
+            int length = regexNew.length();
+            regexNew = regexNew.substring(0, length -1);
+
+        }
+        List<IMatcher> matchers = parseMatcher(regexNew);
+
+
+        return new MatcherExpression(matchers, startAnchor, endAnchor);
+
+
+    }
+
+
+    private boolean parseEndsWith(String a){
+        if (a.endsWith("\\\\$")){
+            return true;
+        }
+        if (a.endsWith("\\$")){
+            return false;
+        }
+        if (a.endsWith("$")){
+            return true;
+        }
+        return false;
+
+
+    }
+
+    private List<IMatcher> parseMatcher(String regex) {
         List<IMatcher> res = new ArrayList<>();
 
         int pos = 0;

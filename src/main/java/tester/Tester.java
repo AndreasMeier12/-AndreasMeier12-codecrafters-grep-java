@@ -1,13 +1,16 @@
 package tester;
 
 import matcher.IMatcher;
+import matcher.MatcherExpression;
 
 import java.util.List;
 
 public class Tester {
-    public static boolean test(List<IMatcher> matchers, String a) {
+    public static boolean test(MatcherExpression matcherExpression, String a) {
         int matcherPos = 0;
         int stringPos = 0;
+
+        List<IMatcher> matchers = matcherExpression.getMatchers();
 
         while (stringPos < a.length() && matcherPos < matchers.size()) {
             IMatcher matcher = matchers.get(matcherPos);

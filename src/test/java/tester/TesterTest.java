@@ -3,6 +3,7 @@ package tester;
 import matcher.AlphaNumericMatcher;
 import matcher.IMatcher;
 import matcher.LiteralMatcher;
+import matcher.MatcherExpression;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -15,28 +16,29 @@ class TesterTest {
 
     @Test
     public void testSimpleLiterals(){
-        assertTrue(Tester.test(List.of(new LiteralMatcher('a')), "a"));
-        assertFalse(Tester.test(List.of(new LiteralMatcher('a')), "b"));
+        assertTrue(Tester.test(new MatcherExpression(List.of(new LiteralMatcher('a')), false, false), "a"));
+        assertFalse(Tester.test(new MatcherExpression(List.of(new LiteralMatcher('a')), false, false), "b"));
 
     }
 
     @Test
     public void testEmpty(){
-        assertTrue(Tester.test(List.of(), "a"));
-        assertFalse(Tester.test(List.of(new LiteralMatcher('a')), ""));
+        assertTrue(Tester.test(new MatcherExpression(List.of(), false, false), "a"));
+        assertFalse(Tester.test(new MatcherExpression(List.of(new LiteralMatcher('a')), false, false), ""));
     }
 
     @Test
     public void testMoreLiteralsThanEntriesInString(){
-        assertTrue(Tester.test(List.of(new LiteralMatcher('a')), "a"));
-        assertFalse(Tester.test(List.of(new LiteralMatcher('a')), "b"));
+        assertTrue(Tester.test(new MatcherExpression(List.of(new LiteralMatcher('a')), false, false), "a"));
+        assertFalse(Tester.test(new MatcherExpression(List.of(new LiteralMatcher('a')), false, false), "b"));
 
     }
 
     @Test
     public void testAlphaNumeric(){
-        assertTrue(Tester.test(List.of(new AlphaNumericMatcher()), "a"));
-        assertFalse(Tester.test(List.of(new AlphaNumericMatcher()), ""));
+        List<IMatcher> alphaNumericMatchers = List.of(new AlphaNumericMatcher());
+        assertTrue(Tester.test(new MatcherExpression(alphaNumericMatchers, false, false), "a"));
+        assertFalse(Tester.test(new MatcherExpression(alphaNumericMatchers, false, false), ""));
 
     }
 
@@ -52,7 +54,7 @@ class TesterTest {
             }
         }
 
-        assertTrue(Tester.test(matchers, a));
+        assertTrue(Tester.test(new MatcherExpression(matchers, false, false), a));
 
     }
 

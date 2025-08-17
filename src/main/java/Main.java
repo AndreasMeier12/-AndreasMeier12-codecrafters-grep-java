@@ -1,4 +1,5 @@
 import matcher.IMatcher;
+import matcher.MatcherExpression;
 import parser.Parser;
 import tester.Tester;
 
@@ -30,7 +31,7 @@ public class Main {
     }
 
     public static boolean matchPattern(String inputLine, String pattern) {
-      List<IMatcher> matchers = new Parser().parseMatcher(pattern);
+      MatcherExpression matchers = new Parser().parse(pattern);
       return Tester.test(matchers, inputLine);
     }
 }
