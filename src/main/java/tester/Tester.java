@@ -7,8 +7,28 @@ import java.util.List;
 
 public class Tester {
     public static boolean test(MatcherExpression matcherExpression, String a) {
+
+        int maxAdvance = matcherExpression.isStartAnchored() ? 0 : a.length();
+        for ( int i = 0; i <= maxAdvance; i++){
+            String candidate = a.substring(i);
+            if (testInner(matcherExpression, candidate)){
+                return true;
+            }
+
+        }
+
+        return false;
+
+
+
+
+
+    }
+
+    static boolean testInner(MatcherExpression matcherExpression, String a){
         int matcherPos = 0;
         int stringPos = 0;
+
 
         List<IMatcher> matchers = matcherExpression.getMatchers();
 

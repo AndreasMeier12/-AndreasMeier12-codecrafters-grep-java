@@ -26,7 +26,6 @@ public class GroupMatcher implements IMatcher {
             if(match.isMatches()){
                 return match;
             }
-            pos = pos + match.getCharsToConsume();
         }
 
         return new MatcherResponse(false, 0, false);

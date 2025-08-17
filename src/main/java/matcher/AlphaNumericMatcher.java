@@ -22,12 +22,12 @@ public class AlphaNumericMatcher implements IMatcher {
 
         logger.log(Level.INFO, "Matching alphanumeric to value in string " + c);
 
-        for (int i = 0; i < a.length(); i++){
+        int i = 0;
             if ( matchChar(a.charAt(i)) ){
                 return new MatcherResponse(true, i + 1, true);
             }
 
-        }
+
         return new MatcherResponse(false, 0, false);
 
     }

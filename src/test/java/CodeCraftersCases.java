@@ -132,5 +132,20 @@ public class CodeCraftersCases {
 
     }
 
+    @Test
+    public void testRr8Intro(){
+        String inputPositive = "log";
+        String inputNegative = "slog";
+
+        String pattern = "^log";
+        MatcherExpression matchers = new Parser().parse(pattern);
+        assertTrue(matchers.isStartAnchored());
+        assertFalse(matchers.isEndAnchored());
+
+        assertTrue(Tester.test(matchers, inputPositive));
+        assertFalse(Tester.test(matchers, inputNegative));
+
+
+    }
 
 }

@@ -19,7 +19,7 @@ public class NegativeGroupMatcher implements IMatcher {
     @Override
     public MatcherResponse match(String a) {
         int pos = 0;
-        while (pos < a.length()){
+        int i = 0;
 
             String subString = a.substring(pos);
             if(subMatchers.stream().anyMatch(x -> x.match(subString).matches)){
@@ -27,7 +27,6 @@ public class NegativeGroupMatcher implements IMatcher {
             } else {
                 return new MatcherResponse(true, pos + 1, true);
             }
-        }
 
         return new MatcherResponse(false, 0, true);
 
