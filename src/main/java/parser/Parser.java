@@ -74,19 +74,25 @@ public class Parser {
         }
 
         Quantifier quantifier = getQuantifier(subString);
+        String candidate = subString;
+        int addQuantifier = 0;
+        if (quantifier.getMinTimes() == 0 || quantifier.getMaxTimes() > 1){
+            candidate = candidate.substring(0, subString.length() -1);
+            addQuantifier++;
+        }
 
-        switch (subString) {
+        switch (candidate) {
             case "\\d":
-                return new GroupParseResult(2, new DigitMatcher(quantifier));
+                return new GroupParseResult(2 + addQuantifier, new DigitMatcher(quantifier));
 
             case "\\w":
-                return new GroupParseResult(2, new AlphaNumericMatcher(quantifier));
+                return new GroupParseResult(2 + addQuantifier, new AlphaNumericMatcher(quantifier));
 
             default:
-                if (subString.length() > 1) {
+                if (candidate.length() > 1) {
                     throw new RuntimeException("Character \"" + subString + "\" not implemented");
                 }
-                return new GroupParseResult(1, new LiteralMatcher(subString.charAt(0), quantifier));
+                return new GroupParseResult(1 + addQuantifier, new LiteralMatcher(subString.charAt(0), quantifier));
 
         }
     }
@@ -130,7 +136,7 @@ public class Parser {
             group = true;
         }
 
-        if (lookAhead < regex.length() - 1 && (regex.charAt(lookAhead + 1) == '+' || regex.charAt(lookAhead + 1) == '?')){
+        if (pos + lookAhead < regex.length() - 1 && (regex.charAt(pos + lookAhead + 1) == '+' || regex.charAt(pos + lookAhead + 1) == '?')){
             lookAhead++;
         }
         if (group){

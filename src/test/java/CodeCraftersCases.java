@@ -164,4 +164,18 @@ public class CodeCraftersCases {
 
     }
 
+    @Test
+    public void testFz7Intro(){
+        String inputPositive = "cat";
+
+        String pattern = "ca+t";
+        MatcherExpression matchers = new Parser().parse(pattern);
+        assertFalse(matchers.isStartAnchored());
+        assertFalse(matchers.isEndAnchored());
+
+        assertTrue(Tester.test(matchers, inputPositive));
+
+
+    }
+
 }

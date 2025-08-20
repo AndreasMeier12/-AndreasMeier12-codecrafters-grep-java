@@ -36,6 +36,8 @@ public class Tester {
             IMatcher matcher = matchers.get(matcherPos);
 
             IMatcher.MatcherResponse match = matcher.match(a.substring(stringPos));
+            matcher.getQuantifier();
+
             if (!match.isMatches()) {
                 return false;
 

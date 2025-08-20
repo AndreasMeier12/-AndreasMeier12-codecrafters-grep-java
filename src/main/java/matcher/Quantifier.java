@@ -5,11 +5,11 @@ public class Quantifier {
     int minTimes;
     int maxTimes;
 
-    int getMinTimes(){
+    public int getMinTimes(){
         return minTimes;
     }
 
-    int getMaxTimes(){
+    public int getMaxTimes(){
         return maxTimes;
     }
 
