@@ -5,15 +5,21 @@ import java.util.List;
 public class NegativeGroupMatcher implements IMatcher {
 
     List<IMatcher> subMatchers;
+    Quantifier quantifier;
 
-
-    public NegativeGroupMatcher(List<IMatcher> subMatchers) {
+    public NegativeGroupMatcher(List<IMatcher> subMatchers, Quantifier quantifier) {
         this.subMatchers = subMatchers;
+        this.quantifier = quantifier;
     }
 
     @Override
     public String getType() {
         return "NegativeGroup";
+    }
+
+    @Override
+    public Quantifier getQuantifier() {
+        return quantifier;
     }
 
     @Override

@@ -6,6 +6,17 @@ public class DigitMatcher implements IMatcher {
         return "Digit";
     }
 
+    Quantifier quantifier;
+
+    public DigitMatcher(Quantifier quantifier) {
+        this.quantifier = quantifier;
+    }
+
+    @Override
+    public Quantifier getQuantifier() {
+        return null;
+    }
+
     @Override
     public MatcherResponse match(String a) {
 

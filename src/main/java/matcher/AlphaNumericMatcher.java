@@ -7,13 +7,20 @@ public class AlphaNumericMatcher implements IMatcher {
 
     private static Logger logger = Logger.getLogger(AlphaNumericMatcher.class.getName());
 
-    public AlphaNumericMatcher() {
+    Quantifier quantifier;
+
+    public AlphaNumericMatcher(Quantifier quantifier) {
 
     }
 
     @Override
     public String getType() {
         return "";
+    }
+
+    @Override
+    public Quantifier getQuantifier() {
+        return null;
     }
 
     @Override

@@ -5,6 +5,10 @@ public interface IMatcher {
     String getType();
 
 
+
+    Quantifier getQuantifier();
+
+
     MatcherResponse match(String a);
 
     public static class MatcherResponse{

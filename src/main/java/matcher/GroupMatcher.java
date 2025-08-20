@@ -6,14 +6,21 @@ import java.util.List;
 public class GroupMatcher implements IMatcher {
 
     List<IMatcher> subMatchers;
+    Quantifier quantifier;
 
-    public GroupMatcher(List<IMatcher> subMatchers) {
+    public GroupMatcher(List<IMatcher> subMatchers, Quantifier quantifier) {
         this.subMatchers = subMatchers;
+        this.quantifier = quantifier;
     }
 
     @Override
     public String getType() {
         return "Group";
+    }
+
+    @Override
+    public Quantifier getQuantifier() {
+        return quantifier;
     }
 
     @Override

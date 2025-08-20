@@ -73,31 +73,70 @@ public class Parser {
             return parseGroup(subString);
         }
 
+        Quantifier quantifier = getQuantifier(subString);
+
         switch (subString) {
             case "\\d":
-                return new GroupParseResult(2, new DigitMatcher());
+                return new GroupParseResult(2, new DigitMatcher(quantifier));
 
             case "\\w":
-                return new GroupParseResult(2, new AlphaNumericMatcher());
+                return new GroupParseResult(2, new AlphaNumericMatcher(quantifier));
 
             default:
                 if (subString.length() > 1) {
                     throw new RuntimeException("Character \"" + subString + "\" not implemented");
                 }
-                return new GroupParseResult(1, new LiteralMatcher(subString.charAt(0)));
+                return new GroupParseResult(1, new LiteralMatcher(subString.charAt(0), quantifier));
 
         }
     }
 
+    private Quantifier getQuantifier(String a){
+        if (a.endsWith("\\\\+")){
+            return new Quantifier(1, Integer.MAX_VALUE);
+        }
+        if (a.endsWith("\\+")){
+            return new Quantifier(1,1);
+        }
+        if (a.endsWith("+")){
+            return new Quantifier(1, Integer.MAX_VALUE);
+        }
+        if (a.endsWith("\\\\?")){
+            return new Quantifier(0, 1);
+        }
+        if (a.endsWith("\\?")){
+            return new Quantifier(1,1);
+        }
+        if (a.endsWith("?")){
+            return new Quantifier(0, 1);
+        }
+
+
+
+        return new Quantifier(1,1);
+
+
+    }
+
     private int lookAhead(String regex, int pos) {
         int lookAhead = 0;
+        boolean group = false;
 
         while (regex.charAt(pos + lookAhead) == '\\') {
             lookAhead++;
         }
-        while (regex.charAt(pos + lookAhead) == '[') {
-            return lookAheadGroup(regex, pos);
+        if (regex.charAt(pos + lookAhead) == '[') {
+            lookAhead = lookAheadGroup(regex, pos);
+            group = true;
         }
+
+        if (lookAhead < regex.length() - 1 && (regex.charAt(lookAhead + 1) == '+' || regex.charAt(lookAhead + 1) == '?')){
+            lookAhead++;
+        }
+        if (group){
+            return lookAhead;
+        }
+
 
 
         return lookAhead + 1;
@@ -130,15 +169,16 @@ public class Parser {
 
         int length = lookAhead(regex, pos);
         String subString = regex.substring(pos + 1, pos + length -1 );
+        Quantifier quantifier = getQuantifier(subString);
         if (subString.startsWith("^")){
             subString = subString.substring(1);
-            return new GroupParseResult(length, new NegativeGroupMatcher(parseMatcher(subString)));
+            return new GroupParseResult(length, new NegativeGroupMatcher(parseMatcher(subString), quantifier));
 
 
         }
 
 
-        GroupMatcher matcher = new GroupMatcher(parseMatcher(subString)
+        GroupMatcher matcher = new GroupMatcher(parseMatcher(subString), quantifier
         );
 
         return new GroupParseResult(length, matcher);
