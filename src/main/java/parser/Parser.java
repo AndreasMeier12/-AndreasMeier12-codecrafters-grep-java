@@ -4,6 +4,7 @@ import matcher.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.Stack;
 
 public class Parser {
@@ -81,20 +82,15 @@ public class Parser {
             addQuantifier++;
         }
 
-        switch (candidate) {
-            case "\\d":
-                return new GroupParseResult(2 + addQuantifier, new DigitMatcher(quantifier));
-
-            case "\\w":
-                return new GroupParseResult(2 + addQuantifier, new AlphaNumericMatcher(quantifier));
-
-            default:
-                if (candidate.length() > 1) {
-                    throw new RuntimeException("Character \"" + subString + "\" not implemented");
-                }
-                return new GroupParseResult(1 + addQuantifier, new LiteralMatcher(subString.charAt(0), quantifier));
-
+        Optional<IMatcher> maybeMatcher = SpecialCharacter.tryMatch(candidate, quantifier);
+        if (maybeMatcher.isPresent()) {
+            return new GroupParseResult(2 + addQuantifier, maybeMatcher.get());
         }
+        if (candidate.length() > 1) {
+            throw new RuntimeException("Character \"" + subString + "\" not implemented");
+        }
+        return new GroupParseResult(1 + addQuantifier, new LiteralMatcher(subString.charAt(0), quantifier));
+
     }
 
     private Quantifier getQuantifier(String a){
