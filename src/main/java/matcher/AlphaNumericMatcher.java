@@ -10,6 +10,7 @@ public class AlphaNumericMatcher implements IMatcher {
     Quantifier quantifier;
 
     public AlphaNumericMatcher(Quantifier quantifier) {
+        this.quantifier = quantifier;
 
     }
 
@@ -20,7 +21,7 @@ public class AlphaNumericMatcher implements IMatcher {
 
     @Override
     public Quantifier getQuantifier() {
-        return null;
+        return quantifier;
     }
 
     @Override

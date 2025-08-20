@@ -14,7 +14,7 @@ public class DigitMatcher implements IMatcher {
 
     @Override
     public Quantifier getQuantifier() {
-        return null;
+        return quantifier;
     }
 
     @Override
